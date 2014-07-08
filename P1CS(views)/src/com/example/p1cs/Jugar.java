@@ -69,7 +69,7 @@ public class Jugar extends Activity {
 	public void conexion() {
 		try {
 			//Conectamos al Cliente con el Servidor insertando la ip del Servidor y en el puerto en el que está escuchando
-			Socket conexion = new Socket("192.168.4.117", 2804);
+			Socket conexion = new Socket("192.168.4.117", 2812);
 			//Creamos la entrada y la salida
 			entrada = new DataInputStream(conexion.getInputStream());
 			salida = new DataOutputStream(conexion.getOutputStream());

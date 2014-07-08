@@ -10,8 +10,8 @@ public class Servidor {
 
     public Servidor() {
         try {
-        	//El Servidor a la espera en el puerto 2804
-            servidor = new ServerSocket(2804);
+        	//El Servidor a la espera en el puerto 2812
+            servidor = new ServerSocket(2812);
             System.out.println("Esperando a jugador...");
             //Ejecutamos los Hilos
             hilo = new Hilo[100];

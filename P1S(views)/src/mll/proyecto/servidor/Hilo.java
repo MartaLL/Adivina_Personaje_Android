@@ -89,7 +89,7 @@ public class Hilo implements Runnable {
 				} 
 			}catch(IOException e){
 				e.printStackTrace();
-			//Una vez terminado que cierre la salida, la entrada y el cliente
+				//Una vez terminado que cierre la salida, la entrada y el cliente
 			}finally {
 				if(salida != null){
 					salida.flush();
@@ -167,6 +167,7 @@ public class Hilo implements Runnable {
 	}
 
 	public void ejecutarInnerJoinIntermedias(){
+		String consultaInner = "";
 		//Si el contador de la vista es mayor que uno se crea la vista intermedia porque precisa de dos vistas para poder crearse
 		if(contadorVista > 1){
 			crearVistaIntermedia();
@@ -174,9 +175,207 @@ public class Hilo implements Runnable {
 			//para poder efectuarse
 			if(contadorIntermedia > 1){
 				//Efectuamos el inner join de las vistas intermedias dos a dos
-				String consultaInner="Select distinct adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id from adivina_personaje.intermedia_"+
-						(contadorIntermedia-1)+" inner join adivina_personaje.intermedia_"+(contadorIntermedia)+" on adivina_personaje.intermedia_"+(contadorIntermedia-1)+
-						".per_id = adivina_personaje.intermedia_"+(contadorIntermedia)+".per_id";
+				switch(contadorIntermedia){
+				case 2: consultaInner = "Select distinct adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id" +
+						" from adivina_personaje.intermedia_"+(contadorIntermedia-1)+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia)+".per_id"; 
+				break;
+				case 3: consultaInner = "Select distinct adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id" +
+						" from adivina_personaje.intermedia_"+(contadorIntermedia-2)+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-1)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id"; 
+				break;
+				case 4: consultaInner = "Select distinct adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id" +
+						" from adivina_personaje.intermedia_"+(contadorIntermedia-3)+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-2)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-1)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id"; 
+				break;
+				case 5: consultaInner = "Select distinct adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id" +
+						" from adivina_personaje.intermedia_"+(contadorIntermedia-4)+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-3)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-2)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-1)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id";
+				break;
+				case 6: consultaInner = "Select distinct adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id" +
+						" from adivina_personaje.intermedia_"+(contadorIntermedia-5)+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-4)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-3)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-2)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-1)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id";
+				break;
+				case 7: consultaInner = "Select distinct adivina_personaje.intermedia_"+(contadorIntermedia-6)+".per_id" +
+						" from adivina_personaje.intermedia_"+(contadorIntermedia-6)+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-5)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-6)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-4)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-3)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-2)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-1)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id";
+				break;
+				case 8: consultaInner = "Select distinct adivina_personaje.intermedia_"+(contadorIntermedia-7)+".per_id" +
+						" from adivina_personaje.intermedia_"+(contadorIntermedia-7)+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-6)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-7)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-6)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-5)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-6)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-4)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-3)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-2)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-1)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id";
+				break;
+				case 9: consultaInner = "Select distinct adivina_personaje.intermedia_"+(contadorIntermedia-8)+".per_id" +
+						" from adivina_personaje.intermedia_"+(contadorIntermedia-8)+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-7)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-8)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-7)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-6)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-7)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-6)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-5)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-6)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-4)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-3)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-2)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-1)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id";
+				break;
+				case 10: consultaInner = "Select distinct adivina_personaje.intermedia_"+(contadorIntermedia-9)+".per_id" +
+						" from adivina_personaje.intermedia_"+(contadorIntermedia-9)+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-8)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-9)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-8)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-7)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-8)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-7)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-6)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-7)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-6)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-5)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-6)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-4)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-3)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-2)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-1)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id";
+				break;
+				case 11: consultaInner = "Select distinct adivina_personaje.intermedia_"+(contadorIntermedia-10)+".per_id" +
+						" from adivina_personaje.intermedia_"+(contadorIntermedia-10)+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-9)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-10)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-9)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-8)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-9)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-8)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-7)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-8)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-7)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-6)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-7)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-6)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-5)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-6)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-4)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-3)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-2)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-1)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id";
+				break;
+				case 12: consultaInner = "Select distinct adivina_personaje.intermedia_"+(contadorIntermedia-11)+".per_id" +
+						" from adivina_personaje.intermedia_"+(contadorIntermedia-11)+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-10)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-11)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-10)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-9)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-10)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-9)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-8)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-9)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-8)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-7)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-8)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-7)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-6)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-7)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-6)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-5)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-6)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-4)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-3)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-2)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-1)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id";
+				break;
+				case 13: consultaInner = "Select distinct adivina_personaje.intermedia_"+(contadorIntermedia-12)+".per_id" +
+						" from adivina_personaje.intermedia_"+(contadorIntermedia-12)+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-11)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-12)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-11)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-10)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-11)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-10)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-9)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-10)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-9)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-8)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-9)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-8)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-7)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-8)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-7)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-6)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-7)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-6)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-5)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-6)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-4)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-5)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-3)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-4)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-2)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-3)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia-1)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-2)+".per_id"+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id";
+				break;
+				default: consultaInner = "Select distinct adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id" +
+						" from adivina_personaje.intermedia_"+(contadorIntermedia-1)+
+						" inner join adivina_personaje.intermedia_"+(contadorIntermedia)+
+						" on adivina_personaje.intermedia_"+(contadorIntermedia-1)+".per_id = adivina_personaje.intermedia_"+(contadorIntermedia)+".per_id"; 
+				break;
+
+				}
+
 				try {
 					//Ejecutamos el inner join
 					rs = stm.executeQuery(consultaInner);
@@ -188,11 +387,11 @@ public class Hilo implements Runnable {
 					//Si la consulta devuelve mas de un resultado
 					if(contador > 1){
 						//Seguir preguntando
-					//Si la consulta devuelve un resultado
+						//Si la consulta devuelve un resultado
 					}else if(contador == 1){
 						//se ha adivinado el personaje por tanto se efectúa el método resultado
 						resultadoPersonaje(numero);
-					//Si la consulta no devuelve ningun resultado
+						//Si la consulta no devuelve ningun resultado
 					}else if(contador == 0){
 						//querrá decir que no existe ningún personaje con dichas características
 						//Para tener un número razonable de características a insertar, obligaremos a que sean 8 siendo el tamaño del ArrayList mayor que 8
@@ -322,7 +521,7 @@ public class Hilo implements Runnable {
 		default: ejecutaConsulta(numero+1); break;
 		}
 	}
-	
+
 	public void insertarPersonaje() {
 		String afirNeg, nombre, apellido;
 		try {
@@ -391,8 +590,8 @@ public class Hilo implements Runnable {
 								e.printStackTrace();
 							}
 						}
-					//Si se recibe correcto en la respuesta querrá decir que el usuario ha dicho que si es el personaje que ha pensado por tanto no es necesario
-					//que insertemos nada
+						//Si se recibe correcto en la respuesta querrá decir que el usuario ha dicho que si es el personaje que ha pensado por tanto no es necesario
+						//que insertemos nada
 					} else if (afirNeg.contains("correcto")) {
 						System.out.println("No se ha tenido que insertar nada por que el personaje es el adecuado");
 					}
@@ -486,7 +685,7 @@ public class Hilo implements Runnable {
 			}
 		}
 	}
-	
+
 	//Permite mostrar el personaje e insertarlo si fuese el caso
 	public void resultadoPersonaje(int numero){
 		String resultadoA[];
@@ -558,5 +757,5 @@ public class Hilo implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	
+
 }
